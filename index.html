@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DriveEase | Car Rental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="index.html">Drive<span>Ease</span></a>
+      <ul id="menu" class="nav-links">
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="cars.html">Cars</a></li>
+        <li><a href="rentals.html">Rentals</a></li>
+      </ul>
+      <button id="loginBtn" class="btn btn-outline">Login / Sign Up</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Simple car rental management</p>
+        <h1>Manage cars and rentals from one clean interface.</h1>
+        <p class="hero-text">
+          DriveEase is a demo web project for listing cars, searching vehicles, creating rental operations and storing actions in localStorage.
+        </p>
+        <div class="hero-actions">
+          <a href="cars.html" class="btn btn-primary">View Cars</a>
+          <a href="rentals.html" class="btn btn-soft">Create Rental</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <img src="images/audi-a3.jpg" alt="Audi A3">
+        <div class="floating-box">
+          <strong id="availableCount">0</strong>
+          <span>Available cars</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div>
+        <strong>4+</strong>
+        <span>Car models</span>
+      </div>
+      <div>
+        <strong>24/7</strong>
+        <span>Demo access</span>
+      </div>
+      <div>
+        <strong>Local</strong>
+        <span>Storage based</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Featured fleet</p>
+        <h2>Popular Cars</h2>
+      </div>
+
+      <div id="featuredCars" class="car-grid">
+        <article class="car-card" data-id="1" data-brand="Audi" data-model="A3 35 TFSI" data-year="2024" data-price="2600" data-status="Available" data-type="Sedan">
+          <img src="images/audi-a3.jpg" alt="Audi A3 35 TFSI">
+          <div class="car-body">
+            <span class="badge available">Available</span>
+            <h3>Audi A3 35 TFSI</h3>
+            <p>2024 • Sedan</p>
+            <strong>2600 TL / day</strong>
+          </div>
+        </article>
+
+        <article class="car-card" data-id="2" data-brand="BMW" data-model="320i" data-year="2023" data-price="3200" data-status="Available" data-type="Sedan">
+          <img src="images/bmw-320i.jpg" alt="BMW 320i">
+          <div class="car-body">
+            <span class="badge available">Available</span>
+            <h3>BMW 320i</h3>
+            <p>2023 • Sedan</p>
+            <strong>3200 TL / day</strong>
+          </div>
+        </article>
+
+        <article class="car-card" data-id="3" data-brand="Mercedes" data-model="C200" data-year="2022" data-price="3500" data-status="Rented" data-type="Sedan">
+          <img src="images/mercedes-c200.jpg" alt="Mercedes C200">
+          <div class="car-body">
+            <span class="badge rented">Rented</span>
+            <h3>Mercedes C200</h3>
+            <p>2022 • Sedan</p>
+            <strong>3500 TL / day</strong>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="authModal" class="modal">
+    <div class="modal-box">
+      <button id="closeModal" class="close-btn">&times;</button>
+      <h2>Login / Sign Up</h2>
+      <p>This is a visual demo only. No real account is created.</p>
+      <form id="authForm">
+        <input type="text" id="authName" placeholder="Full name">
+        <input type="email" id="authEmail" placeholder="Email address">
+        <button class="btn btn-primary" type="submit">Continue Demo</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Action completed</div>
+
+  <footer class="footer">
+    <p>DriveEase Car Rental Management System</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cars | DriveEase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="index.html">Drive<span>Ease</span></a>
+      <ul id="menu" class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a class="active" href="cars.html">Cars</a></li>
+        <li><a href="rentals.html">Rentals</a></li>
+      </ul>
+      <button id="loginBtn" class="btn btn-outline">Login / Sign Up</button>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="section-heading page-title">
+      <p class="eyebrow">Fleet management</p>
+      <h1>Cars</h1>
+      <p>Search, add, update and delete cars. Images are written directly in HTML.</p>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <input id="searchInput" type="text" placeholder="Search by brand or model...">
+        <select id="statusFilter">
+          <option value="All">All statuses</option>
+          <option value="Available">Available</option>
+          <option value="Rented">Rented</option>
+          <option value="Maintenance">Maintenance</option>
+        </select>
+        <button id="resetCarsBtn" class="btn btn-soft" type="button">Reset Cars</button>
+      </div>
+    </section>
+
+    <section class="layout">
+      <form id="carForm" class="panel form-card">
+        <h2>Add / Update Car</h2>
+        <input type="hidden" id="carId">
+
+        <label>Brand
+          <input id="brand" type="text" placeholder="Example: Audi" required>
+        </label>
+
+        <label>Model
+          <input id="model" type="text" placeholder="Example: A3 35 TFSI" required>
+        </label>
+
+        <label>Year
+          <input id="year" type="number" min="1990" max="2030" placeholder="2024" required>
+        </label>
+
+        <label>Price Per Day
+          <input id="price" type="number" min="1" placeholder="2600" required>
+        </label>
+
+        <label>Status
+          <select id="status">
+            <option value="Available">Available</option>
+            <option value="Rented">Rented</option>
+            <option value="Maintenance">Maintenance</option>
+          </select>
+        </label>
+
+        <p class="form-note">New cars automatically use <b>car-placeholder.jpg</b> as image.</p>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Save Car</button>
+          <button id="clearFormBtn" class="btn btn-outline" type="button">Clear</button>
+        </div>
+      </form>
+
+      <div id="carsList" class="car-grid car-grid-large">
+        <article class="car-card" data-id="1" data-brand="Audi" data-model="A3 35 TFSI" data-year="2024" data-price="2600" data-status="Available" data-type="Sedan" data-image="audi-a3.jpg">
+          <img src="images/audi-a3.jpg" alt="Audi A3 35 TFSI">
+          <div class="car-body">
+            <span class="badge available">Available</span>
+            <h3>Audi A3 35 TFSI</h3>
+            <p>2024 • Sedan</p>
+            <strong>2600 TL / day</strong>
+            <div class="card-actions">
+              <button class="btn-small detail-btn">Details</button>
+              <button class="btn-small edit-btn">Edit</button>
+              <button class="btn-small danger delete-btn">Delete</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card" data-id="2" data-brand="BMW" data-model="320i" data-year="2023" data-price="3200" data-status="Available" data-type="Sedan" data-image="bmw-320i.jpg">
+          <img src="images/bmw-320i.jpg" alt="BMW 320i">
+          <div class="car-body">
+            <span class="badge available">Available</span>
+            <h3>BMW 320i</h3>
+            <p>2023 • Sedan</p>
+            <strong>3200 TL / day</strong>
+            <div class="card-actions">
+              <button class="btn-small detail-btn">Details</button>
+              <button class="btn-small edit-btn">Edit</button>
+              <button class="btn-small danger delete-btn">Delete</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card" data-id="3" data-brand="Mercedes" data-model="C200" data-year="2022" data-price="3500" data-status="Rented" data-type="Sedan" data-image="mercedes-c200.jpg">
+          <img src="images/mercedes-c200.jpg" alt="Mercedes C200">
+          <div class="car-body">
+            <span class="badge rented">Rented</span>
+            <h3>Mercedes C200</h3>
+            <p>2022 • Sedan</p>
+            <strong>3500 TL / day</strong>
+            <div class="card-actions">
+              <button class="btn-small detail-btn">Details</button>
+              <button class="btn-small edit-btn">Edit</button>
+              <button class="btn-small danger delete-btn">Delete</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card" data-id="4" data-brand="Toyota" data-model="Corolla" data-year="2021" data-price="1600" data-status="Maintenance" data-type="Sedan" data-image="toyota-corolla.jpg">
+          <img src="images/toyota-corolla.jpg" alt="Toyota Corolla">
+          <div class="car-body">
+            <span class="badge maintenance">Maintenance</span>
+            <h3>Toyota Corolla</h3>
+            <p>2021 • Sedan</p>
+            <strong>1600 TL / day</strong>
+            <div class="card-actions">
+              <button class="btn-small detail-btn">Details</button>
+              <button class="btn-small edit-btn">Edit</button>
+              <button class="btn-small danger delete-btn">Delete</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <aside id="detailPanel" class="detail-panel">
+    <button id="closeDetail" class="close-btn">&times;</button>
+    <h2 id="detailTitle">Car Detail</h2>
+    <p id="detailText">Select a car to view details.</p>
+  </aside>
+
+  <div id="authModal" class="modal">
+    <div class="modal-box">
+      <button id="closeModal" class="close-btn">&times;</button>
+      <h2>Login / Sign Up</h2>
+      <p>This is a visual demo only. No real account is created.</p>
+      <form id="authForm">
+        <input type="text" id="authName" placeholder="Full name">
+        <input type="email" id="authEmail" placeholder="Email address">
+        <button class="btn btn-primary" type="submit">Continue Demo</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Action completed</div>
+
+  <footer class="footer">
+    <p>DriveEase Car Rental Management System</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

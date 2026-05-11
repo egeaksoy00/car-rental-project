@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rentals | DriveEase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="index.html">Drive<span>Ease</span></a>
+      <ul id="menu" class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cars.html">Cars</a></li>
+        <li><a class="active" href="rentals.html">Rentals</a></li>
+      </ul>
+      <button id="loginBtn" class="btn btn-outline">Login / Sign Up</button>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="section-heading page-title">
+      <p class="eyebrow">Rental operations</p>
+      <h1>Rentals</h1>
+      <p>Create, update and cancel rental operations. Data is saved in localStorage.</p>
+    </section>
+
+    <section class="layout rentals-layout">
+      <form id="rentalForm" class="panel form-card">
+        <h2>Create / Update Rental</h2>
+        <input type="hidden" id="rentalId">
+
+        <label>Customer Name
+          <input id="customerName" type="text" placeholder="Customer name" required>
+        </label>
+
+        <label>Select Car
+          <select id="rentalCar" required>
+            <option value="">Choose a car</option>
+            <option value="Audi A3 35 TFSI" data-price="2600">Audi A3 35 TFSI - 2600 TL/day</option>
+            <option value="BMW 320i" data-price="3200">BMW 320i - 3200 TL/day</option>
+            <option value="Mercedes C200" data-price="3500">Mercedes C200 - 3500 TL/day</option>
+            <option value="Toyota Corolla" data-price="1600">Toyota Corolla - 1600 TL/day</option>
+          </select>
+        </label>
+
+        <label>Start Date
+          <input id="startDate" type="date" required>
+        </label>
+
+        <label>End Date
+          <input id="endDate" type="date" required>
+        </label>
+
+        <div id="pricePreview" class="price-preview">Total: 0 TL</div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Save Rental</button>
+          <button id="clearRentalBtn" class="btn btn-outline" type="button">Clear</button>
+        </div>
+      </form>
+
+      <section class="panel rental-panel">
+        <div class="panel-top">
+          <h2>Rental List</h2>
+          <button id="clearRentalsBtn" class="btn btn-soft" type="button">Clear Rentals</button>
+        </div>
+        <div id="rentalList" class="rental-list">
+          <p class="empty-text">No rentals yet.</p>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div id="authModal" class="modal">
+    <div class="modal-box">
+      <button id="closeModal" class="close-btn">&times;</button>
+      <h2>Login / Sign Up</h2>
+      <p>This is a visual demo only. No real account is created.</p>
+      <form id="authForm">
+        <input type="text" id="authName" placeholder="Full name">
+        <input type="email" id="authEmail" placeholder="Email address">
+        <button class="btn btn-primary" type="submit">Continue Demo</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Action completed</div>
+
+  <footer class="footer">
+    <p>DriveEase Car Rental Management System</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
