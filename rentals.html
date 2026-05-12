@@ -4,38 +4,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rentals | DriveEase</title>
+
+  <!-- Favicon (sekme ikonu) -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+  <!-- Font Awesome ikon kütüphanesi -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Google Fonts yazı tipi -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Özel stil dosyası -->
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header class="site-header">
     <nav class="navbar">
       <a class="logo" href="index.html">Drive<span>Ease</span></a>
+
+      <!-- Hamburger menü butonu (mobil) -->
+      <button id="hamburger" class="hamburger-btn" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
       <ul id="menu" class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="cars.html">Cars</a></li>
-        <li><a class="active" href="rentals.html">Rentals</a></li>
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="cars.html"><i class="fa-solid fa-car"></i> Cars</a></li>
+        <li><a class="active" href="rentals.html"><i class="fa-solid fa-file-contract"></i> Rentals</a></li>
       </ul>
-      <button id="loginBtn" class="btn btn-outline">Login / Sign Up</button>
+
+      <div id="userArea" class="user-area">
+        <a href="login.html" class="btn btn-outline"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+        <a href="register.html" class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Register</a>
+      </div>
     </nav>
   </header>
 
   <main class="page">
     <section class="section-heading page-title">
-      <p class="eyebrow">Rental operations</p>
+      <p class="eyebrow"><i class="fa-solid fa-file-contract"></i> Rental operations</p>
       <h1>Rentals</h1>
-      <p>Create, update and cancel rental operations. Data is saved in localStorage.</p>
+      <p>Create, update and cancel rental records. All data is stored in localStorage.</p>
     </section>
 
     <section class="layout rentals-layout">
       <form id="rentalForm" class="panel form-card">
-        <h2>Create / Update Rental</h2>
+        <h2><i class="fa-solid fa-pen-to-square"></i> Create / Update Rental</h2>
         <input type="hidden" id="rentalId">
 
         <label>Customer Name
           <input id="customerName" type="text" placeholder="Customer name" required>
+          <span class="field-error" id="customerError"></span>
         </label>
 
         <label>Select Car
@@ -46,28 +69,35 @@
             <option value="Mercedes C200" data-price="3500">Mercedes C200 - 3500 TL/day</option>
             <option value="Toyota Corolla" data-price="1600">Toyota Corolla - 1600 TL/day</option>
           </select>
+          <span class="field-error" id="carError"></span>
         </label>
 
         <label>Start Date
           <input id="startDate" type="date" required>
+          <span class="field-error" id="startError"></span>
         </label>
 
         <label>End Date
           <input id="endDate" type="date" required>
+          <span class="field-error" id="endError"></span>
         </label>
 
-        <div id="pricePreview" class="price-preview">Total: 0 TL</div>
+        <div id="pricePreview" class="price-preview">
+          <i class="fa-solid fa-tag"></i> Total: 0 TL
+        </div>
 
         <div class="form-actions">
-          <button class="btn btn-primary" type="submit">Save Rental</button>
-          <button id="clearRentalBtn" class="btn btn-outline" type="button">Clear</button>
+          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Rental</button>
+          <button id="clearRentalBtn" class="btn btn-outline" type="button"><i class="fa-solid fa-xmark"></i> Clear</button>
         </div>
       </form>
 
       <section class="panel rental-panel">
         <div class="panel-top">
-          <h2>Rental List</h2>
-          <button id="clearRentalsBtn" class="btn btn-soft" type="button">Clear Rentals</button>
+          <h2><i class="fa-solid fa-list"></i> Rental List</h2>
+          <button id="clearRentalsBtn" class="btn btn-soft" type="button">
+            <i class="fa-solid fa-trash"></i> Clear All
+          </button>
         </div>
         <div id="rentalList" class="rental-list">
           <p class="empty-text">No rentals yet.</p>
@@ -76,25 +106,34 @@
     </section>
   </main>
 
-  <div id="authModal" class="modal">
-    <div class="modal-box">
-      <button id="closeModal" class="close-btn">&times;</button>
-      <h2>Login / Sign Up</h2>
-      <p>This is a visual demo only. No real account is created.</p>
-      <form id="authForm">
-        <input type="text" id="authName" placeholder="Full name">
-        <input type="email" id="authEmail" placeholder="Email address">
-        <button class="btn btn-primary" type="submit">Continue Demo</button>
-      </form>
-    </div>
-  </div>
-
   <div id="toast" class="toast">Action completed</div>
 
   <footer class="footer">
-    <p>DriveEase Car Rental Management System</p>
+    <p><i class="fa-solid fa-car"></i> DriveEase Car Rental Management System</p>
   </footer>
 
-  <script src="js/main.js"></script>
+  <!-- Kimlik doğrulama modülü (harici JS) -->
+  <script src="assets/scripts/auth.js"></script>
+
+  <!-- Ana modül (harici JS) -->
+  <script src="assets/scripts/main.js"></script>
+
+  <!-- Sayfa içi JS: hamburger menü ve navbar kullanıcısı -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      updateNavUser();
+
+      var hamburger = document.getElementById("hamburger");
+      var navMenu   = document.getElementById("menu");
+
+      if (hamburger) {
+        hamburger.addEventListener("click", function() {
+          navMenu.classList.toggle("nav-open");
+          hamburger.classList.toggle("active");
+        });
+      }
+    });
+  </script>
+
 </body>
 </html>

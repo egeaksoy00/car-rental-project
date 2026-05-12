@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | DriveEase</title>
+
+  <!-- Favicon (sekme ikonu) -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+
+
+  <!-- Font Awesome ikon kütüphanesi -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Google Fonts yazı tipi -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Özel stil dosyası -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Sayfa içi JS sayfa değişkeni -->
+  <script>
+    var PAGE_NAME = "Login";
+    document.addEventListener("DOMContentLoaded", function () {
+      document.title = PAGE_NAME + " | DriveEase";
+    });
+  </script>
+</head>
+
+<body class="auth-body">
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+
+      <!-- Logo -->
+      <div class="auth-logo">
+        <a href="index.html">Drive<span>Ease</span></a>
+      </div>
+
+      <h1 class="auth-title">Welcome back</h1>
+      <p class="auth-sub">Sign in to your account to continue</p>
+
+      <!-- Hata mesajı  -->
+      <div id="err-box" class="msg-err" role="alert">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="err-msg">Invalid username or password.</span>
+      </div>
+
+      <!-- Giriş Formu -->
+      <form id="form-login" novalidate>
+        <div class="field">
+          <label for="inp-user" class="lbl">
+            <i class="fa-solid fa-user"></i> Username
+          </label>
+          <input type="text" class="inp" id="inp-user" placeholder="Enter your username" autocomplete="username">
+          <div class="err-text" id="err-user">Please enter your username.</div>
+        </div>
+
+        <div class="field">
+          <label for="inp-pass" class="lbl">
+            <i class="fa-solid fa-lock"></i> Password
+          </label>
+          <input type="password" class="inp" id="inp-pass" placeholder="Enter your password"
+            autocomplete="current-password">
+          <div class="err-text" id="err-pass">Please enter your password.</div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="btn-submit">
+          <i class="fa-solid fa-right-to-bracket"></i> Sign In
+        </button>
+      </form>
+
+      <p class="auth-footer-text">
+        Don't have an account?
+        <a href="register.html">Create one</a>
+      </p>
+
+      <!-- Demo kullanıcı bilgisi -->
+      <div class="demo-hint">
+        <i class="fa-solid fa-circle-info"></i>
+        Demo: <strong>admin</strong> / <strong>1234</strong>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- External JS Dosyası-->
+  <script src="assets/scripts/auth.js"></script>
+
+
+  <script>
+    // Zaten giriş yapılmışsa ana sayfaya yönlendir
+    if (getCurrentUser()) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("form-login").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var usernameInput = document.getElementById("inp-user");
+      var passwordInput = document.getElementById("inp-pass");
+      var username = usernameInput.value.trim();
+      var password = passwordInput.value.trim();
+      var valid = true;
+
+      // Önceki hata mesajlarını temizle
+      usernameInput.classList.remove("invalid");
+      passwordInput.classList.remove("invalid");
+      document.getElementById("err-box").classList.remove("show");
+
+      // Kullanıcı adı doğrulama
+      if (username === "") {
+        usernameInput.classList.add("invalid");
+        document.getElementById("err-user").textContent = "Please enter your username.";
+        valid = false;
+      }
+
+      // Şifre doğrulama
+      if (password === "") {
+        passwordInput.classList.add("invalid");
+        document.getElementById("err-pass").textContent = "Please enter your password.";
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Kullanıcı bilgilerini kontrol et
+      var user = loginUser(username, password);
+      if (user) {
+        setCurrentUser(user);
+        window.location.href = "index.html";
+      } else {
+        document.getElementById("err-box").classList.add("show");
+        document.getElementById("err-msg").textContent = "Invalid username or password. Please try again.";
+      }
+    });
+  </script>
+
+</body>
+
+</html>

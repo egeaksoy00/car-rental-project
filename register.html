@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | DriveEase</title>
+
+  <!-- Favicon (sekme ikonu) -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+
+
+
+  <!-- Font Awesome ikon kütüphanesi -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Google Fonts yazı tipi -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Özel stil dosyası -->
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Sayfa içi JS: sayfa değişkeni -->
+  <script>
+    var PAGE_NAME = "Register";
+    document.addEventListener("DOMContentLoaded", function() {
+      document.title = PAGE_NAME + " | DriveEase";
+    });
+  </script>
+</head>
+<body class="auth-body">
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+
+      <!-- Logo -->
+      <div class="auth-logo">
+        <a href="index.html">Drive<span>Ease</span></a>
+      </div>
+
+      <h1 class="auth-title">Create account</h1>
+      <p class="auth-sub">Choose a username and password to get started</p>
+
+      <!-- Hata / Başarı mesajları -->
+      <div id="registerError" class="msg-err" role="alert">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span id="registerErrorMsg"></span>
+      </div>
+      <div id="registerSuccess" class="msg-ok" role="alert">
+        <i class="fa-solid fa-circle-check"></i>
+        Account created! Redirecting to login...
+      </div>
+
+      <!-- Kayıt Formu -->
+      <form id="registerForm" novalidate>
+
+        <div class="field">
+          <label for="regUsername" class="lbl">
+            <i class="fa-solid fa-user"></i> Username
+          </label>
+          <input type="text" class="inp" id="regUsername" placeholder="Choose a username" autocomplete="username">
+          <div class="err-text" id="err-reg-user">Please choose a username (min 3 characters).</div>
+        </div>
+
+        <div class="field">
+          <label for="regPassword" class="lbl">
+            <i class="fa-solid fa-lock"></i> Password
+          </label>
+          <input type="password" class="inp" id="regPassword" placeholder="Min 6 characters" autocomplete="new-password">
+          <div class="err-text" id="err-reg-pass">Password must be at least 6 characters.</div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+      </form>
+
+      <p class="auth-footer-text">
+        Already have an account?
+        <a href="login.html">Sign in</a>
+      </p>
+
+    </div>
+  </div>
+
+
+
+  <!-- Kimlik doğrulama modülü (harici JS) -->
+  <script src="assets/scripts/auth.js"></script>
+
+  <!-- Sayfa içi JS: kayıt işlemi -->
+  <script>
+    // Zaten giriş yapılmışsa ana sayfaya yönlendir
+    if (getCurrentUser()) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      var usernameInput = document.getElementById("regUsername");
+      var passwordInput = document.getElementById("regPassword");
+
+      var username = usernameInput.value.trim();
+      var password = passwordInput.value.trim();
+      var valid    = true;
+
+      // Önceki hata mesajlarını temizle
+      usernameInput.classList.remove("invalid");
+      passwordInput.classList.remove("invalid");
+      document.getElementById("registerError").classList.remove("show");
+      document.getElementById("registerSuccess").classList.remove("show");
+
+      // Kullanıcı adı kontrolü (en az 3 karakter)
+      if (username.length < 3) {
+        usernameInput.classList.add("invalid");
+        valid = false;
+      }
+
+      // Şifre uzunluğu kontrolü
+      if (password.length < 6) {
+        passwordInput.classList.add("invalid");
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Kayıt işlemini dene
+      var success = registerUser(username, password);
+      if (success) {
+        document.getElementById("registerSuccess").classList.add("show");
+        setTimeout(function() {
+          window.location.href = "login.html";
+        }, 2000);
+      } else {
+        document.getElementById("registerError").classList.add("show");
+        document.getElementById("registerErrorMsg").textContent = "Username '" + username + "' is already taken.";
+        usernameInput.classList.add("invalid");
+      }
+    });
+  </script>
+
+</body>
+</html>

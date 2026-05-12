@@ -1,15 +1,16 @@
-// DriveEase - CTIS255 DOM Project
-// Uses only basic DOM, Events, Forms, localStorage and Timers.
+// main.js - DriveEase Araç Kiralama Sistemi
+// DOM manipülasyonu, olaylar, formlar, localStorage ve zamanlayıcılar kullanır.
+// Kullanıcı oturumu için auth.js ile birlikte çalışır.
 
 document.addEventListener("DOMContentLoaded", function () {
-  setupAuthModal();
   setupHomePage();
   setupCarsPage();
   setupRentalsPage();
 });
 
+// ---- Toast Bildirimi ----
 function showToast(message) {
-  const toast = document.getElementById("toast");
+  var toast = document.getElementById("toast");
   if (!toast) return;
 
   toast.textContent = message;
@@ -20,8 +21,9 @@ function showToast(message) {
   }, 2200);
 }
 
+// ---- İşlem logunu localStorage'a kaydet ----
 function saveAction(actionText) {
-  let actions = JSON.parse(localStorage.getItem("driveEaseActions")) || [];
+  var actions = JSON.parse(localStorage.getItem("driveEaseActions")) || [];
 
   actions.push({
     action: actionText,
@@ -29,47 +31,18 @@ function saveAction(actionText) {
   });
 
   localStorage.setItem("driveEaseActions", JSON.stringify(actions));
-  console.log("Action saved:", actionText);
 }
 
-function setupAuthModal() {
-  const loginBtn = document.getElementById("loginBtn");
-  const modal = document.getElementById("authModal");
-  const closeModal = document.getElementById("closeModal");
-  const authForm = document.getElementById("authForm");
-
-  if (!loginBtn || !modal) return;
-
-  loginBtn.addEventListener("click", function () {
-    modal.classList.add("show");
-  });
-
-  closeModal.addEventListener("click", function () {
-    modal.classList.remove("show");
-  });
-
-  modal.addEventListener("click", function (event) {
-    if (event.target === modal) {
-      modal.classList.remove("show");
-    }
-  });
-
-  authForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    modal.classList.remove("show");
-    saveAction("Demo login/signup button used");
-    showToast("Demo login completed");
-  });
-}
-
+// ---- Ana Sayfa ----
 function setupHomePage() {
-  const availableCount = document.getElementById("availableCount");
-  const featuredCars = document.getElementById("featuredCars");
+  var availableCount = document.getElementById("availableCount");
+  var featuredCars = document.getElementById("featuredCars");
 
   if (!availableCount || !featuredCars) return;
 
-  const cards = featuredCars.querySelectorAll(".car-card");
-  let count = 0;
+  // HTML kartlarından müsait araç sayısını hesapla
+  var cards = featuredCars.querySelectorAll(".car-card");
+  var count = 0;
 
   cards.forEach(function (card) {
     if (card.dataset.status === "Available") {
@@ -79,66 +52,94 @@ function setupHomePage() {
 
   availableCount.textContent = count;
 
+  // Öne çıkan araç kartına tıklama
   featuredCars.addEventListener("click", function (event) {
-    const card = event.target.closest(".car-card");
+    var card = event.target.closest(".car-card");
     if (!card) return;
 
     showToast(card.dataset.brand + " " + card.dataset.model + " selected");
-    saveAction("Featured car selected: " + card.dataset.brand + " " + card.dataset.model);
+    saveAction("Featured car clicked: " + card.dataset.brand + " " + card.dataset.model);
   });
 }
 
+// ---- Araçlar Sayfası ----
 function setupCarsPage() {
-  const carsList = document.getElementById("carsList");
-  const carForm = document.getElementById("carForm");
+  var carsList = document.getElementById("carsList");
+  var carForm = document.getElementById("carForm");
 
   if (!carsList || !carForm) return;
 
-  let cars = loadCarsFromHTML();
+  var cars = loadCarsFromHTML();
 
-  const searchInput = document.getElementById("searchInput");
-  const statusFilter = document.getElementById("statusFilter");
-  const clearFormBtn = document.getElementById("clearFormBtn");
-  const resetCarsBtn = document.getElementById("resetCarsBtn");
+  var searchInput = document.getElementById("searchInput");
+  var statusFilter = document.getElementById("statusFilter");
+  var clearFormBtn = document.getElementById("clearFormBtn");
+  var resetCarsBtn = document.getElementById("resetCarsBtn");
 
+  // Başlangıç araçlarını kaydet ve listele
   saveCars();
+  renderCars();
 
+  // Araç listesi tıklama olayı (Detay, Sil)
   carsList.addEventListener("click", function (event) {
-    const card = event.target.closest(".car-card");
+    var card = event.target.closest(".car-card");
     if (!card) return;
 
-    const carId = Number(card.dataset.id);
+    var carId = Number(card.dataset.id);
 
-    if (event.target.matches(".detail-btn")) {
+    if (event.target.matches(".detail-btn") || event.target.closest(".detail-btn")) {
       showCarDetails(card);
     }
 
-    if (event.target.matches(".edit-btn")) {
-      fillCarForm(carId);
-    }
-
-    if (event.target.matches(".delete-btn")) {
+    if (event.target.matches(".delete-btn") || event.target.closest(".delete-btn")) {
       deleteCar(carId);
     }
   });
 
+  // Arama ve filtre
   searchInput.addEventListener("input", renderCars);
   statusFilter.addEventListener("change", renderCars);
 
+  // Form gönderimi: araç ekle veya güncelle
   carForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const idValue = document.getElementById("carId").value;
-    const existingCar = idValue ? cars.find(function (item) {
+    // --- Form Doğrulama ---
+    var brandVal = document.getElementById("brand").value.trim();
+    var modelVal = document.getElementById("model").value.trim();
+    var yearVal = document.getElementById("year").value;
+    var priceVal = document.getElementById("price").value;
+    var valid = true;
+
+    clearCarErrors();
+
+    if (brandVal === "") {
+      document.getElementById("brandError").textContent = "Brand cannot be empty.";
+      valid = false;
+    }
+    if (modelVal === "") {
+      document.getElementById("modelError").textContent = "Model cannot be empty.";
+      valid = false;
+    }
+
+    if (priceVal === "" || Number(priceVal) < 1) {
+      document.getElementById("priceError").textContent = "Enter a valid price.";
+      valid = false;
+    }
+    if (!valid) return;
+    // --- Doğrulama Sonu ---
+
+    var idValue = document.getElementById("carId").value;
+    var existingCar = idValue ? cars.find(function (item) {
       return item.id === Number(idValue);
     }) : null;
 
-    const car = {
+    var car = {
       id: idValue ? Number(idValue) : Date.now(),
-      brand: document.getElementById("brand").value.trim(),
-      model: document.getElementById("model").value.trim(),
-      year: document.getElementById("year").value,
-      price: document.getElementById("price").value,
+      brand: brandVal,
+      model: modelVal,
+      year: yearVal,
+      price: priceVal,
       status: document.getElementById("status").value,
       type: existingCar ? existingCar.type : "Sedan",
       image: existingCar ? existingCar.image : "car-placeholder.jpg"
@@ -148,11 +149,11 @@ function setupCarsPage() {
       cars = cars.map(function (item) {
         return item.id === car.id ? car : item;
       });
-      showToast("Car updated");
+      showToast("Car updated successfully");
       saveAction("Car updated: " + car.brand + " " + car.model);
     } else {
       cars.push(car);
-      showToast("Car added");
+      showToast("Car added successfully");
       saveAction("Car added: " + car.brand + " " + car.model);
     }
 
@@ -172,13 +173,14 @@ function setupCarsPage() {
     document.getElementById("detailPanel").classList.remove("open");
   });
 
+  // --- İç Fonksiyonlar ---
+
   function loadCarsFromHTML() {
-    const savedCars = localStorage.getItem("driveEaseCars");
+    var savedCars = localStorage.getItem("driveEaseCars");
 
     if (savedCars) {
-      const parsedCars = JSON.parse(savedCars);
-
-      // Fix old localStorage records that used different property names.
+      var parsedCars = JSON.parse(savedCars);
+      // Eski kayıtları normalize et
       return parsedCars.map(function (car) {
         return {
           id: Number(car.id),
@@ -193,8 +195,9 @@ function setupCarsPage() {
       });
     }
 
-    const cards = carsList.querySelectorAll(".car-card");
-    const list = [];
+    // HTML data attribute'larından oku (başlangıç durumu)
+    var cards = carsList.querySelectorAll(".car-card");
+    var list = [];
 
     cards.forEach(function (card) {
       list.push({
@@ -217,21 +220,20 @@ function setupCarsPage() {
   }
 
   function renderCars() {
-    const keyword = searchInput.value.toLowerCase();
-    const selectedStatus = statusFilter.value;
+    var keyword = searchInput.value.toLowerCase();
+    var selectedStatus = statusFilter.value;
 
     carsList.innerHTML = "";
 
-    const filteredCars = cars.filter(function (car) {
-      const fullName = (car.brand + " " + car.model).toLowerCase();
-      const matchesSearch = fullName.indexOf(keyword) !== -1;
-      const matchesStatus = selectedStatus === "All" || car.status === selectedStatus;
-
+    var filteredCars = cars.filter(function (car) {
+      var fullName = (car.brand + " " + car.model).toLowerCase();
+      var matchesSearch = fullName.indexOf(keyword) !== -1;
+      var matchesStatus = selectedStatus === "All" || car.status === selectedStatus;
       return matchesSearch && matchesStatus;
     });
 
     if (filteredCars.length === 0) {
-      const empty = document.createElement("p");
+      var empty = document.createElement("p");
       empty.className = "empty-text";
       empty.textContent = "No cars found.";
       carsList.append(empty);
@@ -239,7 +241,7 @@ function setupCarsPage() {
     }
 
     filteredCars.forEach(function (car) {
-      const article = document.createElement("article");
+      var article = document.createElement("article");
       article.className = "car-card";
       article.dataset.id = car.id;
       article.dataset.brand = car.brand;
@@ -250,29 +252,31 @@ function setupCarsPage() {
       article.dataset.type = car.type;
       article.dataset.image = car.image;
 
-      const img = document.createElement("img");
-      img.src = "images/" + car.image;
+      var img = document.createElement("img");
+      img.src = "assets/images/" + car.image;
       img.alt = car.brand + " " + car.model;
 
-      const body = document.createElement("div");
+      var body = document.createElement("div");
       body.className = "car-body";
 
-      const badge = document.createElement("span");
+      var badge = document.createElement("span");
       badge.className = "badge " + car.status.toLowerCase();
       badge.textContent = car.status;
 
-      const title = document.createElement("h3");
+      var title = document.createElement("h3");
       title.textContent = car.brand + " " + car.model;
 
-      const info = document.createElement("p");
-      info.textContent = car.year + " • " + car.type;
+      var info = document.createElement("p");
+      info.textContent = car.year + " \u2022 " + car.type;
 
-      const price = document.createElement("strong");
+      var price = document.createElement("strong");
       price.textContent = car.price + " TL / day";
 
-      const actions = document.createElement("div");
+      var actions = document.createElement("div");
       actions.className = "card-actions";
-      actions.innerHTML = '<button class="btn-small detail-btn">Details</button><button class="btn-small edit-btn">Edit</button><button class="btn-small danger delete-btn">Delete</button>';
+      actions.innerHTML =
+        '<button class="btn-small detail-btn"><i class="fa-solid fa-circle-info"></i> Details</button>' +
+        '<button class="btn-small danger delete-btn"><i class="fa-solid fa-trash"></i> Delete</button>';
 
       body.append(badge, title, info, price, actions);
       article.append(img, body);
@@ -281,9 +285,9 @@ function setupCarsPage() {
   }
 
   function showCarDetails(card) {
-    const panel = document.getElementById("detailPanel");
-    const title = document.getElementById("detailTitle");
-    const text = document.getElementById("detailText");
+    var panel = document.getElementById("detailPanel");
+    var title = document.getElementById("detailTitle");
+    var text = document.getElementById("detailText");
 
     title.textContent = card.dataset.brand + " " + card.dataset.model;
     text.innerHTML =
@@ -293,55 +297,48 @@ function setupCarsPage() {
       "<b>Status:</b> " + card.dataset.status;
 
     panel.classList.add("open");
-    saveAction("Car details viewed: " + title.textContent);
+    saveAction("Viewed details: " + title.textContent);
   }
 
-  function fillCarForm(id) {
-    const car = cars.find(function (item) {
-      return item.id === id;
-    });
-
-    if (!car) return;
-
-    document.getElementById("carId").value = car.id;
-    document.getElementById("brand").value = car.brand;
-    document.getElementById("model").value = car.model;
-    document.getElementById("year").value = car.year;
-    document.getElementById("price").value = car.price;
-    document.getElementById("status").value = car.status;
-
-    showToast("Car loaded into form");
-  }
 
   function deleteCar(id) {
     cars = cars.filter(function (car) {
       return car.id !== id;
     });
-
     saveCars();
     renderCars();
-    saveAction("Car deleted");
+    saveAction("Car deleted (id=" + id + ")");
     showToast("Car deleted");
   }
 
   function clearCarForm() {
     carForm.reset();
     document.getElementById("carId").value = "";
+    clearCarErrors();
+  }
+
+  function clearCarErrors() {
+    var errorFields = ["brandError", "modelError", "yearError", "priceError"];
+    errorFields.forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = "";
+    });
   }
 }
 
+// ---- Kiralamalar Sayfası ----
 function setupRentalsPage() {
-  const rentalForm = document.getElementById("rentalForm");
-  const rentalList = document.getElementById("rentalList");
+  var rentalForm = document.getElementById("rentalForm");
+  var rentalList = document.getElementById("rentalList");
 
   if (!rentalForm || !rentalList) return;
 
-  let rentals = JSON.parse(localStorage.getItem("driveEaseRentals")) || [];
+  var rentals = JSON.parse(localStorage.getItem("driveEaseRentals")) || [];
 
-  const rentalCar = document.getElementById("rentalCar");
-  const startDate = document.getElementById("startDate");
-  const endDate = document.getElementById("endDate");
-  const pricePreview = document.getElementById("pricePreview");
+  var rentalCar = document.getElementById("rentalCar");
+  var startDate = document.getElementById("startDate");
+  var endDate = document.getElementById("endDate");
+  var pricePreview = document.getElementById("pricePreview");
 
   rentalCar.addEventListener("change", updatePricePreview);
   startDate.addEventListener("change", updatePricePreview);
@@ -350,17 +347,49 @@ function setupRentalsPage() {
   rentalForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const idValue = document.getElementById("rentalId").value;
-    const selectedOption = rentalCar.options[rentalCar.selectedIndex];
-    const total = calculateTotal();
+    // --- Kiralama Formu Doğrulama ---
+    var customerVal = document.getElementById("customerName").value.trim();
+    var carVal = rentalCar.value;
+    var startVal = startDate.value;
+    var endVal = endDate.value;
+    var valid = true;
 
-    const rental = {
+    clearRentalErrors();
+
+    if (customerVal === "") {
+      document.getElementById("customerError").textContent = "Customer name is required.";
+      valid = false;
+    }
+    if (carVal === "") {
+      document.getElementById("carError").textContent = "Please select a car.";
+      valid = false;
+    }
+    if (startVal === "") {
+      document.getElementById("startError").textContent = "Start date is required.";
+      valid = false;
+    }
+    if (endVal === "") {
+      document.getElementById("endError").textContent = "End date is required.";
+      valid = false;
+    }
+    if (startVal && endVal && endVal <= startVal) {
+      document.getElementById("endError").textContent = "End date must be after start date.";
+      valid = false;
+    }
+    if (!valid) return;
+    // --- Doğrulama Sonu ---
+
+    var idValue = document.getElementById("rentalId").value;
+    var selectedOption = rentalCar.options[rentalCar.selectedIndex];
+    var total = calculateTotal();
+
+    var rental = {
       id: idValue ? Number(idValue) : Date.now(),
-      customer: document.getElementById("customerName").value.trim(),
-      car: rentalCar.value,
+      customer: customerVal,
+      car: carVal,
       price: selectedOption.dataset.price,
-      start: startDate.value,
-      end: endDate.value,
+      start: startVal,
+      end: endVal,
       total: total
     };
 
@@ -380,20 +409,21 @@ function setupRentalsPage() {
     renderRentals();
     rentalForm.reset();
     document.getElementById("rentalId").value = "";
+    clearRentalErrors();
     updatePricePreview();
   });
 
+  // Kiralama listesi tıklama olayı (Düzenle, İptal)
   rentalList.addEventListener("click", function (event) {
-    const item = event.target.closest(".rental-item");
+    var item = event.target.closest(".rental-item");
     if (!item) return;
 
-    const id = Number(item.dataset.id);
+    var id = Number(item.dataset.id);
 
-    if (event.target.matches(".edit-rental")) {
+    if (event.target.matches(".edit-rental") || event.target.closest(".edit-rental")) {
       editRental(id);
     }
-
-    if (event.target.matches(".cancel-rental")) {
+    if (event.target.matches(".cancel-rental") || event.target.closest(".cancel-rental")) {
       cancelRental(id);
     }
   });
@@ -401,6 +431,7 @@ function setupRentalsPage() {
   document.getElementById("clearRentalBtn").addEventListener("click", function () {
     rentalForm.reset();
     document.getElementById("rentalId").value = "";
+    clearRentalErrors();
     updatePricePreview();
   });
 
@@ -408,22 +439,24 @@ function setupRentalsPage() {
     rentals = [];
     saveRentals();
     renderRentals();
-    showToast("Rentals cleared");
+    showToast("All rentals cleared");
   });
 
   renderRentals();
   updatePricePreview();
 
+  // --- İç Fonksiyonlar ---
+
   function calculateTotal() {
-    const selectedOption = rentalCar.options[rentalCar.selectedIndex];
+    var selectedOption = rentalCar.options[rentalCar.selectedIndex];
     if (!selectedOption || !selectedOption.dataset.price || !startDate.value || !endDate.value) {
       return 0;
     }
 
-    const start = new Date(startDate.value);
-    const end = new Date(endDate.value);
-    const difference = end - start;
-    const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
+    var start = new Date(startDate.value);
+    var end = new Date(endDate.value);
+    var difference = end - start;
+    var days = Math.ceil(difference / (1000 * 60 * 60 * 24));
 
     if (days <= 0) return 0;
 
@@ -431,7 +464,8 @@ function setupRentalsPage() {
   }
 
   function updatePricePreview() {
-    pricePreview.textContent = "Total: " + calculateTotal() + " TL";
+    var total = calculateTotal();
+    pricePreview.innerHTML = '<i class="fa-solid fa-tag"></i> Total: ' + total + ' TL';
   }
 
   function saveRentals() {
@@ -442,7 +476,7 @@ function setupRentalsPage() {
     rentalList.innerHTML = "";
 
     if (rentals.length === 0) {
-      const empty = document.createElement("p");
+      var empty = document.createElement("p");
       empty.className = "empty-text";
       empty.textContent = "No rentals yet.";
       rentalList.append(empty);
@@ -450,7 +484,7 @@ function setupRentalsPage() {
     }
 
     rentals.forEach(function (rental) {
-      const item = document.createElement("article");
+      var item = document.createElement("article");
       item.className = "rental-item";
       item.dataset.id = rental.id;
 
@@ -459,17 +493,19 @@ function setupRentalsPage() {
         "<p><b>Car:</b> " + rental.car + "</p>" +
         "<p><b>Date:</b> " + rental.start + " to " + rental.end + "</p>" +
         "<p><b>Total:</b> " + rental.total + " TL</p>" +
-        '<div class="card-actions"><button class="btn-small edit-rental">Edit</button><button class="btn-small danger cancel-rental">Cancel</button></div>';
+        '<div class="card-actions">' +
+        '<button class="btn-small edit-rental"><i class="fa-solid fa-pen"></i> Edit</button>' +
+        '<button class="btn-small danger cancel-rental"><i class="fa-solid fa-trash"></i> Cancel</button>' +
+        '</div>';
 
       rentalList.append(item);
     });
   }
 
   function editRental(id) {
-    const rental = rentals.find(function (item) {
+    var rental = rentals.find(function (item) {
       return item.id === id;
     });
-
     if (!rental) return;
 
     document.getElementById("rentalId").value = rental.id;
@@ -478,6 +514,7 @@ function setupRentalsPage() {
     startDate.value = rental.start;
     endDate.value = rental.end;
 
+    clearRentalErrors();
     updatePricePreview();
     showToast("Rental loaded into form");
   }
@@ -486,10 +523,17 @@ function setupRentalsPage() {
     rentals = rentals.filter(function (rental) {
       return rental.id !== id;
     });
-
     saveRentals();
     renderRentals();
-    saveAction("Rental cancelled");
+    saveAction("Rental cancelled (id=" + id + ")");
     showToast("Rental cancelled");
+  }
+
+  function clearRentalErrors() {
+    var errorFields = ["customerError", "carError", "startError", "endError"];
+    errorFields.forEach(function (fieldId) {
+      var el = document.getElementById(fieldId);
+      if (el) el.textContent = "";
+    });
   }
 }
