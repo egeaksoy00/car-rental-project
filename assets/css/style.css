@@ -18,7 +18,7 @@ img {
   max-width: 100%;
 }
 
-/* ---- Header & Navbar ---- */
+
 .site-header {
   background: rgba(255, 255, 255, 0.88);
   border-bottom: 1px solid #dfe5ef;
@@ -69,7 +69,7 @@ img {
   background: #e8efff;
 }
 
-/* ---- User Area (logged in / out display) ---- */
+/* User Area logged in out display  */
 .user-area {
   display: flex;
   align-items: center;
@@ -83,7 +83,7 @@ img {
   font-size: 14px;
 }
 
-/* ---- Buttons ---- */
+/*  Buttons  */
 .btn,
 .btn-small {
   border: none;
@@ -140,7 +140,7 @@ img {
   background: #fee2e2;
 }
 
-/* ---- Hero Section ---- */
+/*  Hero Section  */
 .hero {
   max-width: 1180px;
   margin: 42px auto;
@@ -224,7 +224,7 @@ img {
   font-weight: 600;
 }
 
-/* ---- Layout Containers ---- */
+/*  Layout Containers  */
 .stats,
 .section,
 .page {
@@ -261,7 +261,7 @@ img {
   color: #6c7485;
 }
 
-/* ---- Section Headings ---- */
+/*  Section Başlıkları  */
 .section-heading {
   margin-bottom: 22px;
 }
@@ -272,7 +272,7 @@ img {
   letter-spacing: -1px;
 }
 
-/* ---- Car Cards ---- */
+/*  Car Cards  */
 .car-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -316,7 +316,7 @@ img {
   margin: 0 0 12px;
 }
 
-/* ---- Status Badges ---- */
+/* Status Badges  */
 .badge {
   display: inline-block;
   padding: 6px 10px;
@@ -340,7 +340,7 @@ img {
   color: #d97706;
 }
 
-/* ---- Panel & Forms ---- */
+/*  Panel ve  Forms  */
 .page-title {
   padding-top: 28px;
 }
@@ -402,7 +402,7 @@ img {
   margin-top: 7px;
 }
 
-/* Field error message (JS validation) */
+/* Field error mesajı*/
 .field-error {
   display: block;
   color: #dc2626;
@@ -411,7 +411,7 @@ img {
   font-weight: 600;
 }
 
-/* ---- Detail Side Panel ---- */
+/*  Detail yan Panel  */
 .detail-panel {
   position: fixed;
   right: -380px;
@@ -439,7 +439,7 @@ img {
   cursor: pointer;
 }
 
-/* ---- Rental List ---- */
+/*  Rental List  */
 .rentals-layout {
   grid-template-columns: 380px 1fr;
 }
@@ -465,7 +465,7 @@ img {
   margin: 5px 0;
 }
 
-/* ---- Price Preview ---- */
+/*  Price Preview  */
 .price-preview {
   padding: 14px;
   background: #e8efff;
@@ -479,7 +479,7 @@ img {
   color: #6c7485;
 }
 
-/* ---- Toast ---- */
+
 .toast {
   position: fixed;
   left: 50%;
@@ -497,14 +497,14 @@ img {
   bottom: 24px;
 }
 
-/* ---- Footer ---- */
+
 .footer {
   text-align: center;
   color: #6c7485;
   padding: 36px 20px;
 }
 
-/* ---- Form Note ---- */
+
 .form-note {
   margin: 0;
   padding: 10px 12px;
@@ -514,7 +514,7 @@ img {
   font-size: 0.9rem;
 }
 
-/* ---- Auth Pages (login.html, register.html) ---- */
+/* login.html, register.html */
 .auth-body {
   display: flex;
   align-items: center;
@@ -583,7 +583,7 @@ img {
   text-align: center;
 }
 
-/* ---- Auth Form Fields ---- */
+/*  Auth Form Fields  */
 .field {
   margin-bottom: 16px;
 }
@@ -664,7 +664,7 @@ img {
   display: flex;
 }
 
-/* Full-width submit button */
+/*  submit button */
 .btn-submit {
   display: block;
   width: 100%;
@@ -686,7 +686,7 @@ img {
   transform: translateY(-2px);
 }
 
-/* ---- Hamburger Menu (mobile nav toggle) ---- */
+/*  Hamburger Menu mobile nav toggle  */
 .hamburger-btn {
   display: none;
   flex-direction: column;
@@ -720,7 +720,7 @@ img {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* ---- Responsive ---- */
+/* Responsive Media kısmı */
 @media (max-width: 900px) {
 
   .hero,
@@ -748,12 +748,12 @@ img {
     justify-content: flex-end;
   }
 
-  /* Show hamburger button on mobile */
+  /* Show  button mobil */
   .hamburger-btn {
     display: flex;
   }
 
-  /* Hide nav links by default on mobile */
+
   .nav-links {
     display: none;
     width: 100%;
@@ -765,7 +765,7 @@ img {
     order: 4;
   }
 
-  /* Show nav links when hamburger is toggled */
+
   .nav-links.nav-open {
     display: flex;
   }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@
   <!-- Özel stil dosyası -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
   <header class="site-header">
     <nav class="navbar">
@@ -88,7 +90,8 @@
 
         <div class="form-actions">
           <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Rental</button>
-          <button id="clearRentalBtn" class="btn btn-outline" type="button"><i class="fa-solid fa-xmark"></i> Clear</button>
+          <button id="clearRentalBtn" class="btn btn-outline" type="button"><i class="fa-solid fa-xmark"></i>
+            Clear</button>
         </div>
       </form>
 
@@ -118,16 +121,16 @@
   <!-- Ana modül (harici JS) -->
   <script src="assets/scripts/main.js"></script>
 
-  <!-- Sayfa içi JS: hamburger menü ve navbar kullanıcısı -->
+  <!-- Sayfa içi JS: mobil menü ve navbar  -->
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       updateNavUser();
 
       var hamburger = document.getElementById("hamburger");
-      var navMenu   = document.getElementById("menu");
+      var navMenu = document.getElementById("menu");
 
       if (hamburger) {
-        hamburger.addEventListener("click", function() {
+        hamburger.addEventListener("click", function () {
           navMenu.classList.toggle("nav-open");
           hamburger.classList.toggle("active");
         });
@@ -136,4 +139,5 @@
   </script>
 
 </body>
+
 </html>

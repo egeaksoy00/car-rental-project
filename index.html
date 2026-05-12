@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@
   <!-- Özel stil dosyası -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
   <header class="site-header">
     <nav class="navbar">
@@ -86,7 +88,8 @@
       </div>
 
       <div id="featuredCars" class="car-grid">
-        <article class="car-card" data-id="1" data-brand="Audi" data-model="A3 35 TFSI" data-year="2024" data-price="2600" data-status="Available" data-type="Sedan">
+        <article class="car-card" data-id="1" data-brand="Audi" data-model="A3 35 TFSI" data-year="2024"
+          data-price="2600" data-status="Available" data-type="Sedan">
           <img src="assets/images/audi-a3.jpg" alt="Audi A3 35 TFSI">
           <div class="car-body">
             <span class="badge available">Available</span>
@@ -96,7 +99,8 @@
           </div>
         </article>
 
-        <article class="car-card" data-id="2" data-brand="BMW" data-model="320i" data-year="2023" data-price="3200" data-status="Available" data-type="Sedan">
+        <article class="car-card" data-id="2" data-brand="BMW" data-model="320i" data-year="2023" data-price="3200"
+          data-status="Available" data-type="Sedan">
           <img src="assets/images/bmw-320i.jpg" alt="BMW 320i">
           <div class="car-body">
             <span class="badge available">Available</span>
@@ -106,7 +110,8 @@
           </div>
         </article>
 
-        <article class="car-card" data-id="3" data-brand="Mercedes" data-model="C200" data-year="2022" data-price="3500" data-status="Rented" data-type="Sedan">
+        <article class="car-card" data-id="3" data-brand="Mercedes" data-model="C200" data-year="2022" data-price="3500"
+          data-status="Rented" data-type="Sedan">
           <img src="assets/images/mercedes-c200.jpg" alt="Mercedes C200">
           <div class="car-body">
             <span class="badge rented">Rented</span>
@@ -131,18 +136,18 @@
   <!-- Ana modül (harici JS) -->
   <script src="assets/scripts/main.js"></script>
 
-  <!-- Sayfa içi JS: hamburger menü ve navbar kullanıcısı -->
+  <!-- mobil menü ve navbar  -->
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       // Navbar'ı giriş yapmış kullanıcıya göre güncelle
       updateNavUser();
 
-      // Mobil hamburger menü açma/kapama
+      // Mobil  menü açma/kapama
       var hamburger = document.getElementById("hamburger");
-      var navMenu   = document.getElementById("menu");
+      var navMenu = document.getElementById("menu");
 
       if (hamburger) {
-        hamburger.addEventListener("click", function() {
+        hamburger.addEventListener("click", function () {
           navMenu.classList.toggle("nav-open");
           hamburger.classList.toggle("active");
         });
@@ -151,4 +156,5 @@
   </script>
 
 </body>
+
 </html>

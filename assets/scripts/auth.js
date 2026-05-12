@@ -1,19 +1,17 @@
-// auth.js - Giriş, Kayıt ve Çıkış işlemleri
-// Kullanıcılar için JSON dizisi, oturum için localStorage kullanır
 
-// Varsayılan kullanıcı listesi
+// Vars. kullanıcı list
 var users = [
-  { id: 1, username: "admin", password: "1234"    },
-  { id: 2, username: "ali",   password: "ali123"  },
-  { id: 3, username: "ayse",  password: "ayse123" }
+  { id: 1, username: "admin", password: "1234" },
+  { id: 2, username: "ali", password: "ali123" },
+  { id: 3, username: "ayse", password: "ayse123" }
 ];
 
-// Kayıtlı kullanıcıları localStorage'dan yükle ve birleştir
+// Kayıtlıları localstordan yükle 
 function loadAllUsers() {
   var saved = localStorage.getItem("driveEaseUsers");
   if (saved) {
     var parsed = JSON.parse(saved);
-    // Varsayılan listede olmayan kullanıcıları ekle
+    //  listede olmayan kullanıcıları ekle
     for (var i = 0; i < parsed.length; i++) {
       var found = false;
       for (var j = 0; j < users.length; j++) {
@@ -30,7 +28,7 @@ function loadAllUsers() {
   return users;
 }
 
-// Kullanıcı dizisini localStorage'a kaydet (yalnızca kayıtlılar, varsayılanlar hariç)
+// Kullanıcı dizisini kaydet
 function saveUsers(allUsers) {
   // İlk 3 varsayılan kullanıcı hariç herkesi kaydet
   var registered = [];
@@ -40,7 +38,7 @@ function saveUsers(allUsers) {
   localStorage.setItem("driveEaseUsers", JSON.stringify(registered));
 }
 
-// Giriş kontrolü - kullanıcı nesnesi veya null döner
+// Giriş kontrolü kullanıcı nesnesi veya null döner
 function loginUser(username, password) {
   var allUsers = loadAllUsers();
   for (var i = 0; i < allUsers.length; i++) {
@@ -51,10 +49,10 @@ function loginUser(username, password) {
   return null;
 }
 
-// Yeni kullanıcı kaydı - başarılıysa true, kullanıcı adı alınmışsa false döner
+// Yeni kullanıcı  başarılıysa true, hatalıysa false 
 function registerUser(username, password) {
   var allUsers = loadAllUsers();
-  // Kullanıcı adının zaten alınıp alınmadığını kontrol et
+  // Kullanıcı adının alınıp alınmadığını kontrol et
   for (var i = 0; i < allUsers.length; i++) {
     if (allUsers[i].username === username) {
       return false;
@@ -70,7 +68,7 @@ function registerUser(username, password) {
   return true;
 }
 
-// Aktif oturum kullanıcısını kaydet
+// kaydet kullanıcn
 function setCurrentUser(user) {
   localStorage.setItem("driveEaseCurrentUser", JSON.stringify(user));
 }
@@ -90,7 +88,7 @@ function logoutUser() {
   window.location.href = "login.html";
 }
 
-// Navbar'da giriş yapmış kullanıcıyı göster (her sayfada çağrılır)
+// giriş yapmış kullanıcıyı göst
 function updateNavUser() {
   var userArea = document.getElementById("userArea");
   if (!userArea) return;

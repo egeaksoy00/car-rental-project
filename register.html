@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,14 +22,15 @@
   <!-- Özel stil dosyası -->
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <!-- Sayfa içi JS: sayfa değişkeni -->
+
   <script>
     var PAGE_NAME = "Register";
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       document.title = PAGE_NAME + " | DriveEase";
     });
   </script>
 </head>
+
 <body class="auth-body">
 
   <div class="auth-wrapper">
@@ -42,7 +44,7 @@
       <h1 class="auth-title">Create account</h1>
       <p class="auth-sub">Choose a username and password to get started</p>
 
-      <!-- Hata / Başarı mesajları -->
+      <!-- Hata mesajları -->
       <div id="registerError" class="msg-err" role="alert">
         <i class="fa-solid fa-circle-exclamation"></i>
         <span id="registerErrorMsg"></span>
@@ -67,7 +69,8 @@
           <label for="regPassword" class="lbl">
             <i class="fa-solid fa-lock"></i> Password
           </label>
-          <input type="password" class="inp" id="regPassword" placeholder="Min 6 characters" autocomplete="new-password">
+          <input type="password" class="inp" id="regPassword" placeholder="Min 6 characters"
+            autocomplete="new-password">
           <div class="err-text" id="err-reg-pass">Password must be at least 6 characters.</div>
         </div>
 
@@ -86,17 +89,17 @@
 
 
 
-  <!-- Kimlik doğrulama modülü (harici JS) -->
+
   <script src="assets/scripts/auth.js"></script>
 
-  <!-- Sayfa içi JS: kayıt işlemi -->
+  <!-- kayıt işlemi -->
   <script>
     // Zaten giriş yapılmışsa ana sayfaya yönlendir
     if (getCurrentUser()) {
       window.location.href = "index.html";
     }
 
-    document.getElementById("registerForm").addEventListener("submit", function(e) {
+    document.getElementById("registerForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
       var usernameInput = document.getElementById("regUsername");
@@ -104,7 +107,7 @@
 
       var username = usernameInput.value.trim();
       var password = passwordInput.value.trim();
-      var valid    = true;
+      var valid = true;
 
       // Önceki hata mesajlarını temizle
       usernameInput.classList.remove("invalid");
@@ -112,13 +115,13 @@
       document.getElementById("registerError").classList.remove("show");
       document.getElementById("registerSuccess").classList.remove("show");
 
-      // Kullanıcı adı kontrolü (en az 3 karakter)
+      // Kullanıcı adı kontrolü en az 3 karakter
       if (username.length < 3) {
         usernameInput.classList.add("invalid");
         valid = false;
       }
 
-      // Şifre uzunluğu kontrolü
+      // Şifre uzunluğu kontr
       if (password.length < 6) {
         passwordInput.classList.add("invalid");
         valid = false;
@@ -130,7 +133,7 @@
       var success = registerUser(username, password);
       if (success) {
         document.getElementById("registerSuccess").classList.add("show");
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "login.html";
         }, 2000);
       } else {
@@ -142,4 +145,5 @@
   </script>
 
 </body>
+
 </html>

@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   setupRentalsPage();
 });
 
-// ---- Toast Bildirimi ----
+//  Toast Bildirimi 
 function showToast(message) {
   var toast = document.getElementById("toast");
   if (!toast) return;
@@ -21,7 +21,7 @@ function showToast(message) {
   }, 2200);
 }
 
-// ---- İşlem logunu localStorage'a kaydet ----
+//  İşlem logunu localstora kaydet 
 function saveAction(actionText) {
   var actions = JSON.parse(localStorage.getItem("driveEaseActions")) || [];
 
@@ -33,14 +33,14 @@ function saveAction(actionText) {
   localStorage.setItem("driveEaseActions", JSON.stringify(actions));
 }
 
-// ---- Ana Sayfa ----
+//  Ana Sayfa 
 function setupHomePage() {
   var availableCount = document.getElementById("availableCount");
   var featuredCars = document.getElementById("featuredCars");
 
   if (!availableCount || !featuredCars) return;
 
-  // HTML kartlarından müsait araç sayısını hesapla
+  // HTML kartlarından araç sayısnı bul sadece avaliablar
   var cards = featuredCars.querySelectorAll(".car-card");
   var count = 0;
 
@@ -62,7 +62,7 @@ function setupHomePage() {
   });
 }
 
-// ---- Araçlar Sayfası ----
+//  Araçlar Sayfası 
 function setupCarsPage() {
   var carsList = document.getElementById("carsList");
   var carForm = document.getElementById("carForm");
@@ -76,11 +76,11 @@ function setupCarsPage() {
   var clearFormBtn = document.getElementById("clearFormBtn");
   var resetCarsBtn = document.getElementById("resetCarsBtn");
 
-  // Başlangıç araçlarını kaydet ve listele
+  // Başlangıç araçlarını kaydet
   saveCars();
   renderCars();
 
-  // Araç listesi tıklama olayı (Detay, Sil)
+  // Araç listesi tıklama  (Detay, Sil)
   carsList.addEventListener("click", function (event) {
     var card = event.target.closest(".car-card");
     if (!card) return;
@@ -100,7 +100,7 @@ function setupCarsPage() {
   searchInput.addEventListener("input", renderCars);
   statusFilter.addEventListener("change", renderCars);
 
-  // Form gönderimi: araç ekle veya güncelle
+  //  araç ekle veya güncelle
   carForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -173,14 +173,14 @@ function setupCarsPage() {
     document.getElementById("detailPanel").classList.remove("open");
   });
 
-  // --- İç Fonksiyonlar ---
+  // İç Fonksiyonlar 
 
   function loadCarsFromHTML() {
     var savedCars = localStorage.getItem("driveEaseCars");
 
     if (savedCars) {
       var parsedCars = JSON.parse(savedCars);
-      // Eski kayıtları normalize et
+
       return parsedCars.map(function (car) {
         return {
           id: Number(car.id),
@@ -195,7 +195,7 @@ function setupCarsPage() {
       });
     }
 
-    // HTML data attribute'larından oku (başlangıç durumu)
+    // HTML data  oku (başlangıç durumu)
     var cards = carsList.querySelectorAll(".car-card");
     var list = [];
 
@@ -347,7 +347,7 @@ function setupRentalsPage() {
   rentalForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // --- Kiralama Formu Doğrulama ---
+    //  Kiralama  Doğrulama 
     var customerVal = document.getElementById("customerName").value.trim();
     var carVal = rentalCar.value;
     var startVal = startDate.value;
@@ -377,7 +377,7 @@ function setupRentalsPage() {
       valid = false;
     }
     if (!valid) return;
-    // --- Doğrulama Sonu ---
+    //  Doğrulama bitti sonu
 
     var idValue = document.getElementById("rentalId").value;
     var selectedOption = rentalCar.options[rentalCar.selectedIndex];
@@ -413,7 +413,7 @@ function setupRentalsPage() {
     updatePricePreview();
   });
 
-  // Kiralama listesi tıklama olayı (Düzenle, İptal)
+  // Kiralama listesi tıklama
   rentalList.addEventListener("click", function (event) {
     var item = event.target.closest(".rental-item");
     if (!item) return;
@@ -445,7 +445,7 @@ function setupRentalsPage() {
   renderRentals();
   updatePricePreview();
 
-  // --- İç Fonksiyonlar ---
+
 
   function calculateTotal() {
     var selectedOption = rentalCar.options[rentalCar.selectedIndex];

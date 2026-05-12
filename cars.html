@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cars | DriveEase</title>
 
-  <!-- Favicon (sekme ikonu) -->
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
-  <!-- Font Awesome ikon kütüphanesi -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-  <!-- Google Fonts yazı tipi -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Özel stil dosyası -->
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
   <header class="site-header">
     <nav class="navbar">
       <a class="logo" href="index.html">Drive<span>Ease</span></a>
 
-      <!-- Hamburger menü butonu (mobil) -->
+      <!-- Hamburger but-->
       <button id="hamburger" class="hamburger-btn" aria-label="Toggle menu">
         <span></span>
         <span></span>
@@ -60,7 +62,7 @@
           <option value="Rented">Rented</option>
           <option value="Maintenance">Maintenance</option>
         </select>
-        <!-- Satır içi onclick örneği (inline JavaScript) -->
+
         <button id="resetCarsBtn" class="btn btn-soft" type="button" onclick="console.log('Reset Cars clicked')">
           <i class="fa-solid fa-rotate-left"></i> Reset Cars
         </button>
@@ -100,16 +102,19 @@
           </select>
         </label>
 
-        <p class="form-note"><i class="fa-solid fa-circle-info"></i> New cars use <b>car-placeholder.jpg</b> as image.</p>
+        <p class="form-note"><i class="fa-solid fa-circle-info"></i> New cars use <b>car-placeholder.jpg</b> as image.
+        </p>
 
         <div class="form-actions">
           <button class="btn btn-primary" type="submit"><i class="fa-solid fa-floppy-disk"></i> Save Car</button>
-          <button id="clearFormBtn" class="btn btn-outline" type="button"><i class="fa-solid fa-xmark"></i> Clear</button>
+          <button id="clearFormBtn" class="btn btn-outline" type="button"><i class="fa-solid fa-xmark"></i>
+            Clear</button>
         </div>
       </form>
 
       <div id="carsList" class="car-grid car-grid-large">
-        <article class="car-card" data-id="1" data-brand="Audi" data-model="A3 35 TFSI" data-year="2024" data-price="2600" data-status="Available" data-type="Sedan" data-image="audi-a3.jpg">
+        <article class="car-card" data-id="1" data-brand="Audi" data-model="A3 35 TFSI" data-year="2024"
+          data-price="2600" data-status="Available" data-type="Sedan" data-image="audi-a3.jpg">
           <img src="assets/images/audi-a3.jpg" alt="Audi A3 35 TFSI">
           <div class="car-body">
             <span class="badge available">Available</span>
@@ -123,7 +128,8 @@
           </div>
         </article>
 
-        <article class="car-card" data-id="2" data-brand="BMW" data-model="320i" data-year="2023" data-price="3200" data-status="Available" data-type="Sedan" data-image="bmw-320i.jpg">
+        <article class="car-card" data-id="2" data-brand="BMW" data-model="320i" data-year="2023" data-price="3200"
+          data-status="Available" data-type="Sedan" data-image="bmw-320i.jpg">
           <img src="assets/images/bmw-320i.jpg" alt="BMW 320i">
           <div class="car-body">
             <span class="badge available">Available</span>
@@ -137,7 +143,8 @@
           </div>
         </article>
 
-        <article class="car-card" data-id="3" data-brand="Mercedes" data-model="C200" data-year="2022" data-price="3500" data-status="Rented" data-type="Sedan" data-image="mercedes-c200.jpg">
+        <article class="car-card" data-id="3" data-brand="Mercedes" data-model="C200" data-year="2022" data-price="3500"
+          data-status="Rented" data-type="Sedan" data-image="mercedes-c200.jpg">
           <img src="assets/images/mercedes-c200.jpg" alt="Mercedes C200">
           <div class="car-body">
             <span class="badge rented">Rented</span>
@@ -151,7 +158,8 @@
           </div>
         </article>
 
-        <article class="car-card" data-id="4" data-brand="Toyota" data-model="Corolla" data-year="2021" data-price="1600" data-status="Maintenance" data-type="Sedan" data-image="toyota-corolla.jpg">
+        <article class="car-card" data-id="4" data-brand="Toyota" data-model="Corolla" data-year="2021"
+          data-price="1600" data-status="Maintenance" data-type="Sedan" data-image="toyota-corolla.jpg">
           <img src="assets/images/toyota-corolla.jpg" alt="Toyota Corolla">
           <div class="car-body">
             <span class="badge maintenance">Maintenance</span>
@@ -180,22 +188,22 @@
     <p><i class="fa-solid fa-car"></i> DriveEase Car Rental Management System</p>
   </footer>
 
-  <!-- Kimlik doğrulama modülü (harici JS) -->
+  <!-- Auth Module (external JS) -->
   <script src="assets/scripts/auth.js"></script>
 
-  <!-- Ana modül (harici JS) -->
+  <!-- Main Module (external JS) -->
   <script src="assets/scripts/main.js"></script>
 
-  <!-- Sayfa içi JS: hamburger menü ve navbar kullanıcısı -->
+  <!--  hamburger menu + nav user -->
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       updateNavUser();
 
       var hamburger = document.getElementById("hamburger");
-      var navMenu   = document.getElementById("menu");
+      var navMenu = document.getElementById("menu");
 
       if (hamburger) {
-        hamburger.addEventListener("click", function() {
+        hamburger.addEventListener("click", function () {
           navMenu.classList.toggle("nav-open");
           hamburger.classList.toggle("active");
         });
@@ -204,4 +212,5 @@
   </script>
 
 </body>
+
 </html>
