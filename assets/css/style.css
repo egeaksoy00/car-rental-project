@@ -480,24 +480,6 @@ img {
 }
 
 
-.toast {
-  position: fixed;
-  left: 50%;
-  bottom: -70px;
-  transform: translateX(-50%);
-  background: #172033;
-  color: white;
-  padding: 14px 18px;
-  border-radius: 999px;
-  z-index: 60;
-  transition: 0.25s;
-}
-
-.toast.show {
-  bottom: 24px;
-}
-
-
 .footer {
   text-align: center;
   color: #6c7485;
