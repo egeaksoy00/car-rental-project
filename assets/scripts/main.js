@@ -1,6 +1,3 @@
-// main.js - DriveEase Araç Kiralama Sistemi
-// DOM manipülasyonu, olaylar, formlar, localStorage ve zamanlayıcılar kullanır.
-// Kullanıcı oturumu için auth.js ile birlikte çalışır.
 
 document.addEventListener("DOMContentLoaded", function () {
   setupHomePage();

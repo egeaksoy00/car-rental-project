@@ -69,7 +69,7 @@ img {
   background: #e8efff;
 }
 
-/* User Area logged in out display  */
+/* user area kısmı  */
 .user-area {
   display: flex;
   align-items: center;
@@ -83,7 +83,7 @@ img {
   font-size: 14px;
 }
 
-/*  Buttons  */
+/*  butonlar  */
 .btn,
 .btn-small {
   border: none;
@@ -140,7 +140,7 @@ img {
   background: #fee2e2;
 }
 
-/*  Hero Section  */
+/*  Hero kısmı  */
 .hero {
   max-width: 1180px;
   margin: 42px auto;
@@ -224,7 +224,7 @@ img {
   font-weight: 600;
 }
 
-/*  Layout Containers  */
+/*  layout  */
 .stats,
 .section,
 .page {
@@ -261,7 +261,7 @@ img {
   color: #6c7485;
 }
 
-/*  Section Başlıkları  */
+/*  section başlıkları  */
 .section-heading {
   margin-bottom: 22px;
 }
@@ -272,7 +272,7 @@ img {
   letter-spacing: -1px;
 }
 
-/*  Car Cards  */
+/*  araba kartları */
 .car-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -316,7 +316,7 @@ img {
   margin: 0 0 12px;
 }
 
-/* Status Badges  */
+/* araba durumu  */
 .badge {
   display: inline-block;
   padding: 6px 10px;
@@ -340,7 +340,7 @@ img {
   color: #d97706;
 }
 
-/*  Panel ve  Forms  */
+/*  panel ve forms  */
 .page-title {
   padding-top: 28px;
 }
@@ -465,7 +465,6 @@ img {
   margin: 5px 0;
 }
 
-/*  Price Preview  */
 .price-preview {
   padding: 14px;
   background: #e8efff;
@@ -480,11 +479,6 @@ img {
 }
 
 
-.footer {
-  text-align: center;
-  color: #6c7485;
-  padding: 36px 20px;
-}
 
 
 .form-note {
@@ -496,7 +490,7 @@ img {
   font-size: 0.9rem;
 }
 
-/* login.html, register.html */
+/* login ve register */
 .auth-body {
   display: flex;
   align-items: center;
@@ -565,7 +559,7 @@ img {
   text-align: center;
 }
 
-/*  Auth Form Fields  */
+/*  Auth kısmı  */
 .field {
   margin-bottom: 16px;
 }
@@ -668,7 +662,7 @@ img {
   transform: translateY(-2px);
 }
 
-/*  Hamburger Menu mobile nav toggle  */
+/*  Hamburger */
 .hamburger-btn {
   display: none;
   flex-direction: column;
@@ -689,7 +683,6 @@ img {
   transition: 0.3s;
 }
 
-/* Animate hamburger to X when active */
 .hamburger-btn.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -702,7 +695,7 @@ img {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Responsive Media kısmı */
+/* Mobil */
 @media (max-width: 900px) {
 
   .hero,
@@ -730,7 +723,6 @@ img {
     justify-content: flex-end;
   }
 
-  /* Show  button mobil */
   .hamburger-btn {
     display: flex;
   }
