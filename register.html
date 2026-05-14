@@ -6,20 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register | DriveEase</title>
 
-  <!-- Favicon (sekme ikonu) -->
+  <!-- Favicon  -->
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
 
 
-  <!-- Font Awesome ikon kütüphanesi -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-  <!-- Google Fonts yazı tipi -->
+  <!-- Google Fonts  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Özel stil dosyası -->
+  <!-- css -->
   <link rel="stylesheet" href="assets/css/style.css">
 
 
@@ -36,7 +36,6 @@
   <div class="auth-wrapper">
     <div class="auth-card">
 
-      <!-- Logo -->
       <div class="auth-logo">
         <a href="index.html">Drive<span>Ease</span></a>
       </div>
@@ -44,7 +43,6 @@
       <h1 class="auth-title">Create account</h1>
       <p class="auth-sub">Choose a username and password to get started</p>
 
-      <!-- Hata mesajları -->
       <div id="registerError" class="msg-err" role="alert">
         <i class="fa-solid fa-circle-exclamation"></i>
         <span id="registerErrorMsg"></span>
@@ -54,7 +52,6 @@
         Account created! Redirecting to login...
       </div>
 
-      <!-- Kayıt Formu -->
       <form id="registerForm" novalidate>
 
         <div class="field">
@@ -115,7 +112,7 @@
       document.getElementById("registerError").classList.remove("show");
       document.getElementById("registerSuccess").classList.remove("show");
 
-      // Kullanıcı adı kontrolü en az 3 karakter
+      // Kullanıcı adı kontrolü en az 3 karakter olmak zorunda
       if (username.length < 3) {
         usernameInput.classList.add("invalid");
         valid = false;

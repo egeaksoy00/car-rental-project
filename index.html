@@ -6,18 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DriveEase | Car Rental</title>
 
-  <!-- Favicon (sekme ikonu) -->
+  <!-- favicon-->
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
 
-  <!-- Font Awesome ikon kütüphanesi -->
+  <!-- font -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-  <!-- Google Fonts yazı tipi -->
+  <!-- Google Fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Özel stil dosyası -->
+  <!-- css -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -26,7 +26,7 @@
     <nav class="navbar">
       <a class="logo" href="index.html">Drive<span>Ease</span></a>
 
-      <!-- Hamburger menü butonu (mobil) -->
+      <!-- Hamburger menü butonu -->
       <button id="hamburger" class="hamburger-btn" aria-label="Toggle menu">
         <span></span>
         <span></span>
@@ -126,23 +126,18 @@
 
 
 
-  <footer class="footer">
-    <p><i class="fa-solid fa-car"></i> DriveEase Car Rental Management System</p>
-  </footer>
-
-  <!-- Kimlik doğrulama modülü (harici JS) -->
+  <!-- authjs -->
   <script src="assets/scripts/auth.js"></script>
 
-  <!-- Ana modül (harici JS) -->
+  <!-- mainjs -->
   <script src="assets/scripts/main.js"></script>
 
-  <!-- mobil menü ve navbar  -->
+  <!-- navbar -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Navbar'ı giriş yapmış kullanıcıya göre güncelle
+      
       updateNavUser();
 
-      // Mobil  menü açma/kapama
       var hamburger = document.getElementById("hamburger");
       var navMenu = document.getElementById("menu");
 
